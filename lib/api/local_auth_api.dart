@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:local_auth/local_auth.dart';
+
+import '../page/lock/presentation/widgets/custom_local_auth.dart';
 
 class LocalAuthApi {
   static final _auth = LocalAuthentication();
@@ -7,7 +8,7 @@ class LocalAuthApi {
   static Future<bool> hasBiometrics() async {
     try {
       return await _auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
@@ -15,7 +16,7 @@ class LocalAuthApi {
   static Future<List<BiometricType>> getBiometrics() async {
     try {
       return await _auth.getAvailableBiometrics();
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return <BiometricType>[];
     }
   }
@@ -26,11 +27,11 @@ class LocalAuthApi {
 
     try {
       return await _auth.authenticateWithBiometrics(
-        localizedReason: 'Scan Fingerprint to Authenticate',
+        localizedReason: 'Dasturni ochish uchun barmoq izidan foydalaning',
         useErrorDialogs: true,
         stickyAuth: true,
       );
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
